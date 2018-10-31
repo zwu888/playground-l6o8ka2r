@@ -1,19 +1,28 @@
-# Welcome!
-
-This C++ template lets you get started quickly with a simple one-page playground.
-
+# description: 
+ deleting NULL pointers have no effect.  deleting a pointer to a base class which points to a derived object is legal assuming the base destructor is virtual. deleting an array of objects using a base class pointer is undefined.
 ```C++ runnable
-#include <iostream>
-
-using namespace std;
-
-int main() 
+struct Foo
 {
-    cout << "Hello, World!";
-    return 0;
+   virtual ~Foo() {}
+   };
+
+struct Bar : public Foo
+  {
+  };
+ 
+ int main(int argc, char** argv)
+ {
+   Foo* f = new Bar;
+   delete f;
+   f = 0;
+   delete f;
+
+   Foo* fa = new Bar[10];
+   delete [] fa;
+   fa = 0;
+   delete fa;
+
+   return 0;
 }
 ```
 
-# Advanced usage
-
-If you want a more complex example (external libraries, viewers...), use the [Advanced C++ template](https://tech.io/select-repo/598)
